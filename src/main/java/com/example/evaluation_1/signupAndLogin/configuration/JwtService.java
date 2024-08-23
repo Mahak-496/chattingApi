@@ -13,7 +13,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 ))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60*60 ))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
@@ -23,6 +23,18 @@ public class JwtService {
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
+    }
+    public Long extractUserId(String token) {
+        try {
+            String subject = extractClaims(token).getSubject();
+            return Long.parseLong(subject);
+        } catch (NumberFormatException e) {
+
+            throw new RuntimeException("Invalid user ID in token");
+        } catch (Exception e) {
+
+            throw new RuntimeException("Invalid token");
+        }
     }
 
     public String extractUsername(String token) {

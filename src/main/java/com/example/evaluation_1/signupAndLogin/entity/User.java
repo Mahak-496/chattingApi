@@ -103,6 +103,7 @@
 //}
 package com.example.evaluation_1.signupAndLogin.entity;
 
+import com.example.evaluation_1.chat.entity.ChatRoom;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -117,6 +118,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -170,6 +172,8 @@ public class User implements UserDetails {
 
     @Column(name = "user_token")
     private String token;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
